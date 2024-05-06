@@ -1,5 +1,7 @@
-package br.com.personmanagement.entity;
+package br.com.personmanagement.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,16 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Address")
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "person_id")
-    private People person;
 
     @Column(nullable = false)
     private String street;
@@ -32,6 +29,16 @@ public class Address {
     @Column(nullable = false)
     private String city;
 
+    @Column(nullable = false)
+    @JsonProperty("state")
+    private String state;
+
+    @JsonIgnore
+    @ManyToOne
+    private People people;
+
+    @Column(name = "is_main")
+    private boolean main;
 
 
 }

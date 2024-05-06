@@ -1,4 +1,4 @@
-package br.com.personmanagement.entity;
+package br.com.personmanagement.api.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,4 +31,9 @@ public class People {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> address = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "main_address_id")
+    private Address mainAddress;
+
 }
