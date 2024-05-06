@@ -1,8 +1,11 @@
-package br.com.personmanagement.api.entity;
+package br.com.personmanagement.domain.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "People")
-@Table(name = "People")
+@Entity
 public class People {
 
     @Id
@@ -25,15 +27,11 @@ public class People {
     @Column(name = "name_people")
     private String name;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "Date_of_birth")
-    private LocalDate DateOfBirth;
+    private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "main_address_id")
-    private Address mainAddress;
 
 }

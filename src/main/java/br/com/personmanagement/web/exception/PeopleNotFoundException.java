@@ -1,8 +1,8 @@
 package br.com.personmanagement.web.exception;
 
-public class PersonNotFoundException extends ResourceNotFoundException {
+public class PeopleNotFoundException extends ResourceNotFoundException {
 
-    public PersonNotFoundException(String message) {
+    public PeopleNotFoundException(String message) {
         super(message);
     }
 }

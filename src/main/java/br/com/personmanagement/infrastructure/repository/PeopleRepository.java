@@ -1,6 +1,6 @@
-package br.com.personmanagement.repository;
+package br.com.personmanagement.infrastructure.repository;
 
-import br.com.personmanagement.api.entity.People;
+import br.com.personmanagement.domain.entity.People;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
