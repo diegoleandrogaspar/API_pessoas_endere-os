@@ -8,6 +8,7 @@ import br.com.personmanagement.infrastructure.assembler.PeopleConverter;
 import br.com.personmanagement.infrastructure.repository.PeopleRepository;
 import javax.validation.Valid;
 
+import br.com.personmanagement.infrastructure.specifications.PeopleSpecifications;
 import br.com.personmanagement.web.exception.BusinessException;
 import br.com.personmanagement.web.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class PeopleController {
     }
 
     @GetMapping
-    public List<PeopleResponseDTO> listPeople() {
-        return peopleConverter.toCollectionDTO(peopleRepository.findAll());
+    public List<PeopleResponseDTO> listPeople(PeopleSpecifications peopleSpecifications) {
+        return peopleConverter.toCollectionDTO(peopleService.getAllPeople(peopleSpecifications));
     }
 
     @GetMapping("/{peopleId}")

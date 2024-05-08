@@ -6,6 +6,7 @@ import br.com.personmanagement.domain.entity.Address;
 import br.com.personmanagement.domain.entity.People;
 import br.com.personmanagement.infrastructure.repository.AddressRepository;
 import br.com.personmanagement.infrastructure.repository.PeopleRepository;
+import br.com.personmanagement.infrastructure.specifications.PeopleSpecifications;
 import br.com.personmanagement.web.exception.AddressNotFoundException;
 import br.com.personmanagement.web.exception.BusinessException;
 import br.com.personmanagement.web.exception.PeopleNotFoundException;
@@ -37,6 +38,11 @@ public class PeopleService {
     public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
     }
+
+    public List<People> getAllPeople(PeopleSpecifications peopleSpecifications) {
+        return peopleRepository.findAll(peopleSpecifications);
+    }
+
 
     @Transactional
     public People create(PeopleRequestDTO peopleRequestDTO) {
