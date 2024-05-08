@@ -1,5 +1,6 @@
 package br.com.personmanagement.application.dto.response;
 
+import br.com.personmanagement.domain.entity.enums.AddressType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,6 @@ public class AddressResponseDTO {
     private String number;
     private String city;
     private String state;
-    private boolean main;
+    private AddressType type;
 
 }

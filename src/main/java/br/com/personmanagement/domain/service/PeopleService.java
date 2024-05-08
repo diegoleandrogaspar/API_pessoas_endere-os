@@ -6,6 +6,8 @@ import br.com.personmanagement.domain.entity.Address;
 import br.com.personmanagement.domain.entity.People;
 import br.com.personmanagement.infrastructure.repository.AddressRepository;
 import br.com.personmanagement.infrastructure.repository.PeopleRepository;
+import br.com.personmanagement.web.exception.AddressNotFoundException;
+import br.com.personmanagement.web.exception.BusinessException;
 import br.com.personmanagement.web.exception.PeopleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,10 @@ import java.util.Optional;
 public class PeopleService {
 
     public static final String MSG_PEOPLE_NOT_FOUND
-            = "Person not found with ID: %d";
+            = "Não existe cadastro de pessoa com o código %d";
+
+    public static final String MSG_ADDRESS_NOT_FOUND
+            = "Não existe cadastro de endereço com o código %d ";
 
     @Autowired
     private AddressRepository addressRepository;
@@ -41,43 +46,35 @@ public class PeopleService {
 
         Long addressId = peopleRequestDTO.getAddressId();
 
-        // Buscar o endereço pelo ID usando o AddressRepository
         Optional<Address> optionalAddress = addressRepository.findById(addressId);
 
         if (optionalAddress.isPresent()) {
             Address address = optionalAddress.get();
-            // Associar o endereço ao objeto People
             people.getAddress().add(address);
-            address.setPeople(people); // Estabelecer a associação bidirecional
+            address.setPeople(people);
             return peopleRepository.save(people);
         } else {
-            throw new IllegalArgumentException("Endereço não encontrado com o ID: " + addressId);
+            throw new AddressNotFoundException(MSG_ADDRESS_NOT_FOUND + addressId);
         }
     }
 
     @Transactional
         public People update(Long peopleId, PeopleRequestDTO peopleRequestDTO) {
-            // Buscar o objeto People existente pelo ID
             People existingPeople = peopleRepository.findById(peopleId)
                     .orElseThrow(() -> new PeopleNotFoundException(
                             String.format(MSG_PEOPLE_NOT_FOUND, peopleId)));
 
-            // Atualizar os campos do objeto People com base no DTO recebido
             existingPeople.setName(peopleRequestDTO.getName());
             existingPeople.setDateOfBirth(peopleRequestDTO.getDateOfBirth());
 
-            // Recuperar o ID do endereço a partir do DTO
             Long addressId = peopleRequestDTO.getAddressId();
 
-            // Buscar o endereço associado ao ID fornecido
             Address address = addressService.searchOrFail(addressId);
 
-            // Atualizar o endereço associado ao objeto People
             List<Address> addressList = new ArrayList<>();
             addressList.add(address);
             existingPeople.setAddress(addressList);
 
-            // Salvar e retornar o objeto People atualizado
             return peopleRepository.save(existingPeople);
         }
 

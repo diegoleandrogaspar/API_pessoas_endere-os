@@ -6,7 +6,7 @@ import br.com.personmanagement.domain.entity.Address;
 import br.com.personmanagement.domain.entity.People;
 import br.com.personmanagement.domain.service.AddressService;
 import br.com.personmanagement.infrastructure.assembler.AddressConverter;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

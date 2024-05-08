@@ -14,7 +14,7 @@ import java.util.List;
 public class AddressService {
 
     public static final String MSG_ADDRESS_NOT_FOUND
-            = "Address not found with ID: %d";
+            = "Não existe cadastro de endereço com o código ";
 
     private final AddressRepository addressRepository;
 

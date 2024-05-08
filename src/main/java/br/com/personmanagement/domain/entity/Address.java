@@ -1,8 +1,9 @@
 package br.com.personmanagement.domain.entity;
 
+import br.com.personmanagement.domain.entity.enums.AddressType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,8 +38,8 @@ public class Address {
     @ManyToOne
     private People people;
 
-    @Column(name = "is_main")
-    private boolean main;
+    private AddressType type;
+
 
 
 }

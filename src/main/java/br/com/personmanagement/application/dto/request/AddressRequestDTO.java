@@ -1,7 +1,9 @@
 package br.com.personmanagement.application.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import br.com.personmanagement.domain.entity.enums.AddressType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +27,6 @@ public class AddressRequestDTO {
     private String state;
 
     @NotNull
-    private boolean main;
+    private AddressType type;
 
 }
