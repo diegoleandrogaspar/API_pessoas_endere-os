@@ -46,6 +46,7 @@ public class PeopleRepositoryTest {
         assertNotNull(savedPeople.getId(), "Saved Person should have an ID after saving");
         assertEquals("Marcio", savedPeople.getName(), "Saved Person should have the correct name");
         assertEquals(LocalDate.parse("1991-10-15"), savedPeople.getDateOfBirth(), "Saved Person should have the correct date of birth");
+
     }
 
     @DisplayName("Given People List when findAll then Return People List")
