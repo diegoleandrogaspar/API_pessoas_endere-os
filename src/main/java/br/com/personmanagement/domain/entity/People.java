@@ -33,5 +33,4 @@ public class People {
 
     @OneToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
-
 }

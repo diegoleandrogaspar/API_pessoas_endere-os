@@ -38,6 +38,8 @@ public class Address {
     @ManyToOne
     private People people;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private AddressType type;
 
 
