@@ -2,6 +2,7 @@ package br.com.personmanagement.domain.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +32,7 @@ public class People {
     @Column(name = "Date_of_birth")
     private LocalDate dateOfBirth;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
 }

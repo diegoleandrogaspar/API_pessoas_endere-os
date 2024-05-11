@@ -28,21 +28,17 @@ public class PeopleService {
             = "Não existe cadastro de endereço com o código %d ";
 
     @Autowired
-    private AddressRepository addressRepository;
-
-    @Autowired
     private AddressService addressService;
 
-    private final PeopleRepository peopleRepository;
+    @Autowired
+    private PeopleRepository peopleRepository;
 
-    public PeopleService(PeopleRepository peopleRepository) {
-        this.peopleRepository = peopleRepository;
-    }
+    @Autowired
+    private AddressRepository addressRepository;
 
     public List<People> getAllPeople(PeopleSpecifications peopleSpecifications) {
         return peopleRepository.findAll(peopleSpecifications);
     }
-
 
     @Transactional
     public People create(PeopleRequestDTO peopleRequestDTO) {
@@ -64,30 +60,9 @@ public class PeopleService {
         }
     }
 
-    @Transactional
-        public People update(Long peopleId, PeopleRequestDTO peopleRequestDTO) {
-            People existingPeople = peopleRepository.findById(peopleId)
-                    .orElseThrow(() -> new PeopleNotFoundException(
-                            String.format(MSG_PEOPLE_NOT_FOUND, peopleId)));
-
-            existingPeople.setName(peopleRequestDTO.getName());
-            existingPeople.setDateOfBirth(peopleRequestDTO.getDateOfBirth());
-
-            Long addressId = peopleRequestDTO.getAddressId();
-
-            Address address = addressService.searchOrFail(addressId);
-
-            List<Address> addressList = new ArrayList<>();
-            addressList.add(address);
-            existingPeople.setAddress(addressList);
-
-            return peopleRepository.save(existingPeople);
-        }
-
-        public People searchOrFail(Long peopleId) {
+    public People searchOrFail(Long peopleId) {
             return peopleRepository.findById(peopleId)
                     .orElseThrow(() -> new PeopleNotFoundException(
                             String.format(MSG_PEOPLE_NOT_FOUND, peopleId)));
         }
     }
-

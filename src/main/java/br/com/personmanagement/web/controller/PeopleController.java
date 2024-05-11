@@ -58,8 +58,11 @@ public class PeopleController {
     @PutMapping("/{peopleId}")
     public PeopleResponseDTO update(@PathVariable Long peopleId, @RequestBody @Valid PeopleRequestDTO peopleRequestDTO) {
         try {
-            People updatedPeople = peopleService.update(peopleId, peopleRequestDTO);
-            return peopleConverter.toDto(updatedPeople);
+            People updatedPeople = peopleService.searchOrFail(peopleId);
+
+            peopleConverter.copyToDomainObject(peopleRequestDTO, updatedPeople);
+
+            return peopleConverter.toDto(peopleService.create(peopleRequestDTO));
         }
         catch (ResourceNotFoundException e){
             throw new BusinessException(e.getMessage());
